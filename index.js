@@ -1,5 +1,18 @@
 const express = require('express')
 const app = express()
+
+// add template engine
+const path = require('path')
+const hbs = require('express-handlebars')
+// setup template dir and file exts
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'hbs')
+app.engine('hbs', hbs.engine({
+    extname: 'hbs',
+    defaultLayout: 'main',
+    layoutsDir: __dirname + '/views/layouts',
+}))
+
 const mysql = require('mysql')
 
 //app.use(express.json())
