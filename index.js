@@ -38,6 +38,17 @@ con.connect((err) => {
     })
 })
 
+app.get('/', (req, res) => {
+    let sql = 'SELECT * FROM article'
+    con.query(sql, (err, result) => {
+        if (err) throw err
+        articles = result
+        res.render('index', {
+            articles: articles
+        })
+    })
+})
+
 app.listen(3010, () => {
     console.log("Webapp started at http://localhost:3010")
 })
