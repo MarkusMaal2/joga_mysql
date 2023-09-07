@@ -17,14 +17,15 @@ app.engine('hbs', hbs.engine({
 // setup static public directory
 app.use(express.static('public'))
 
-//app.use(express.json())
-//app.use(express.urlencoded({extended: true}))
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
 
 const articleRoutes = require('./routes/article')
 const authorRoutes = require('./routes/author')
 app.use('/', articleRoutes)
 app.use('/article', articleRoutes)
 app.use('/author', authorRoutes)
+app.use('/admin/article', articleRoutes)
 
 
 app.listen(3010, () => {
