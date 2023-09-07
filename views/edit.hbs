@@ -1,0 +1,25 @@
+<h1>Edit article</h1>
+{{#article}}
+<form method="post">
+    <p>{{message}}</p>
+    <label for="name">Name</label>
+    <input type="text" name="name" id="name" placeholder="Article name" value="{{name}}">
+
+    <label for="slug">Slug</label>
+    <input type="text" name="slug" id="slug" placeholder="Article slug" value="{{slug}}">
+
+    <label for="image">Image</label>
+    <input type="text" name="image" id="image" placeholder="Article image" value="{{image}}">
+
+    <label for="body">Body</label>
+    <textarea name="body" id="body" placeholder="Article body">{{body}}</textarea>
+
+    <label for="author">Author</label>
+{{/article}}
+    <select id="author" name="author">
+        {{#authors}}
+            <option value="{{id}}">{{name}}</option>
+        {{/authors}}
+    </select>
+    <button>Update and publish</button>
+</form>
