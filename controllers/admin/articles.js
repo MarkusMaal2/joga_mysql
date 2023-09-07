@@ -12,7 +12,8 @@ const showArticleForm = (req, res) => {
 
 // create new article (POST)
 const createNewArticle = (req, res) => {
-    let currentDate = new Date().toJSON().slice(0, 10);
+    // source: https://stackoverflow.com/questions/5129624/convert-js-date-time-to-mysql-datetime
+    let currentDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
     let query = `INSERT INTO article (name, slug, image, body, published, author_id) VALUES ('${req.body.name}', '${req.body.slug}', '${req.body.image}', '${req.body.body}', '${currentDate}', ${req.body.author})`
 
     let query2 = `SELECT author.id as 'id', author.name as 'name' FROM author`
