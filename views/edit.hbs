@@ -1,7 +1,7 @@
 <h1>Edit article</h1>
-{{#article}}
+<p>{{message}}</p>
 <form method="post">
-    <p>{{message}}</p>
+{{#article}}
     <label for="name">Name</label>
     <input type="text" name="name" id="name" placeholder="Article name" value="{{name}}">
 
@@ -21,8 +21,8 @@
             <option value="{{id}}">{{name}}</option>
         {{/authors}}
     </select>
-    <input type="hidden" name="action" value="edit">
     <button>Update and publish</button>
+    <input type="hidden" name="action" value="edit">
 </form>
 <hr>
 <form method="post">

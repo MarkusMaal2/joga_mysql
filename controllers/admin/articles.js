@@ -59,6 +59,14 @@ const updateArticle = (req, res) => {
     con.query(query, (err, result2) => {
         con.query(query2, (err, result) => {
             if (err) throw err
+            if (result.length === 0) {
+                res.render('edit', {
+                    message: "This article does not exist!",
+                    article: null,
+                    authors: null
+                })
+                return;
+            }
             res.render('edit', {
                 message: "",
                 article: result,
