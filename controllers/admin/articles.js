@@ -1,20 +1,28 @@
 const con = require('../../utils/db.js')
 // display article creation form (GET)
 const showArticleForm = (req, res) => {
-    res.render('create', {
-        message: ""
+    let query2 = `SELECT author.id as 'id', author.name as 'name' FROM author`
+    con.query(query2, (err, result2) => {
+        res.render('create', {
+            message: "",
+            authors: result2
+        })
     })
 }
 
 // create new article (POST)
 const createNewArticle = (req, res) => {
     let currentDate = new Date().toJSON().slice(0, 10);
-    let query = `INSERT INTO article (name, slug, image, body, published) VALUES ('${req.body.name}', '${req.body.slug}', '${req.body.image}', '${req.body.body}', '${currentDate}')`
+    let query = `INSERT INTO article (name, slug, image, body, published, author_id) VALUES ('${req.body.name}', '${req.body.slug}', '${req.body.image}', '${req.body.body}', '${currentDate}', ${req.body.author})`
 
-    con.query(query, (err, result) => {
-        if (err) throw err
-        res.render('create', {
-            message: "New article created successfully!"
+    let query2 = `SELECT author.id as 'id', author.name as 'name' FROM author`
+    con.query(query2, (err, result2) => {
+        con.query(query, (err, result) => {
+            if (err) throw err
+            res.render('create', {
+                message: "New article created successfully!",
+                authors: result2
+            })
         })
     })
 }
@@ -22,12 +30,27 @@ const createNewArticle = (req, res) => {
 // show article update form
 const updateArticle = (req, res) => {
     if (req.method === "POST") {
-        // POST
-        let query = `UPDATE article SET name='${req.body.name}', slug='${req.body.slug}', image='${req.body.image}', body='${req.body.body}', author_id=${req.body.author} WHERE id = ${req.params.id}`;
-        con.query(query, (err, result) => {
-            if (err) throw err
-            res.redirect("/")
-        })
+        if (req.body.action === "erase") {
+            let query = `DELETE FROM article WHERE id = ${req.params.id}`;
+            con.query(query, (err, result) => {
+                if (err) throw err
+                console.log(`Deleted record with id=${req.params.id}`)
+                res.redirect("/")
+            })
+        } else if (req.body.action === "edit") {
+            // POST
+            let query = `UPDATE article
+                         SET name='${req.body.name}',
+                             slug='${req.body.slug}',
+                             image='${req.body.image}',
+                             body='${req.body.body}',
+                             author_id=${req.body.author}
+                         WHERE id = ${req.params.id}`;
+            con.query(query, (err, result) => {
+                if (err) throw err
+                res.redirect("/")
+            })
+        }
     } else {
         // GET
         let query = `SELECT author.id as 'id', author.name as 'name' FROM author`

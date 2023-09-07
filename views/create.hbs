@@ -12,6 +12,10 @@
 
     <label for="body">Body</label>
     <textarea name="body" id="body" placeholder="Article body"></textarea>
-
+    <select name="author">
+        {{#authors}}
+            <option value="{{id}}">{{name}}</option>
+        {{/authors}}
+    </select>
     <button>Publish</button>
 </form>

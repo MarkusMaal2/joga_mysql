@@ -21,5 +21,13 @@
             <option value="{{id}}">{{name}}</option>
         {{/authors}}
     </select>
+    <input type="hidden" name="action" value="edit">
     <button>Update and publish</button>
+</form>
+<hr>
+<form method="post">
+    <h1>Delete article</h1>
+    <p>If you want to remove this article, you may use the button below.</p>
+    <input type="hidden" name="action" value="erase">
+    <button class="danger">Delete</button>
 </form>
