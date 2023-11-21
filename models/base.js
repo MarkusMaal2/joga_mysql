@@ -29,11 +29,19 @@ class BaseSQLModel {
         return results[0];
     }
 
+    async findByForeignKey(where, value, foreignTable, foreignKey) {
+        const query = `SELECT * FROM ${this.tableName} INNER JOIN ${foreignTable} ON ${this.tableName}.id=${foreignTable}.${foreignKey} WHERE ${where}="${value}"`
+        const results = await this.executeQuery(query, [where, value, foreignTable, foreignKey])
+        return results[0]
+    }
+
     async findOne(where, value) {
         const query = `SELECT * FROM ${this.tableName} WHERE ${where}="${value}"`;
         const results = await this.executeQuery(query, [where, value])
         return results[0]
     }
+
+
 
     async create(data) {
         const query = `INSERT INTO ${this.tableName} SET ?`;
