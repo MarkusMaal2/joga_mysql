@@ -32,7 +32,7 @@ class BaseSQLModel {
     async findByForeignKey(where, value, foreignTable, foreignKey) {
         const query = `SELECT * FROM ${this.tableName} INNER JOIN ${foreignTable} ON ${this.tableName}.id=${foreignTable}.${foreignKey} WHERE ${where}="${value}"`
         const results = await this.executeQuery(query, [where, value, foreignTable, foreignKey])
-        return results[0]
+        return results
     }
 
     async findOne(where, value) {
