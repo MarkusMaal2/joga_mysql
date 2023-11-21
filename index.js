@@ -1,4 +1,5 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 const app = express()
 
 // add template engine
@@ -13,6 +14,8 @@ app.engine('hbs', hbs.engine({
     defaultLayout: 'main',
     layoutsDir: __dirname + '/views/layouts',
 }))
+
+
 
 // setup static public directory
 app.use(express.static('public'))
