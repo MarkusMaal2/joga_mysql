@@ -15,6 +15,8 @@ router.post("/article/create", (req, res) => articleCtrl.createNewArticle(req, r
 
 router.put("/article/edit/:id", (req, res) => articleCtrl.editArticle(req, res))
 
+router.delete("/article/delete/:id", (req, res) => articleCtrl.deleteArticle(req, res))
+
 
 // export router for use in def application file
 module.exports = router
