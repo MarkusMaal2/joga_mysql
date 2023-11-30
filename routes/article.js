@@ -13,6 +13,8 @@ router.get("/article/:slug", (req, res) => articleCtrl.getArticleBySlug(req, res
 
 router.post("/article/create", (req, res) => articleCtrl.createNewArticle(req, res))
 
+router.put("/article/edit/:id", (req, res) => articleCtrl.editArticle(req, res))
+
 
 // export router for use in def application file
 module.exports = router

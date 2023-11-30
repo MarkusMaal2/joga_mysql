@@ -1,5 +1,7 @@
 const articleDbModel = require("../models/article")
+const authorDbModel = require("../models/author")
 const articleModel = new articleDbModel()
+const authorModel = new authorDbModel()
 
 class articleController {
     constructor() {
@@ -29,6 +31,22 @@ class articleController {
         res.status(201).json({
             message: `created article with id ${articleId}`,
             article: {id: articleId, ...newArticle}
+        })
+    }
+
+    async editArticle(req, res) {
+        let sets = "";
+        sets += `name = "${req.body.name}", `;
+        sets += `slug = "${req.body.slug}", `;
+        sets += `image = "${req.body.image}", `;
+        sets += `body = "${req.body.body}", `;
+        sets += `author_id = ${req.body.author_id}`;
+        const rows = await articleModel.update(req.params.id, sets)
+        const article = await articleModel.findOne(req.body.slug);
+        article["author"] = await authorModel.findAuthor(req.body.author_id)
+        res.status(201).json({
+            message: `affected rows: ` + rows,
+            article: article
         })
     }
 }
