@@ -11,6 +11,8 @@ router.get('/', (req, res) => articleCtrl.getAllArticles(req, res))
 
 router.get("/article/:slug", (req, res) => articleCtrl.getArticleBySlug(req, res))
 
+router.post("/article/create", (req, res) => articleCtrl.createNewArticle(req, res))
+
 
 // export router for use in def application file
 module.exports = router

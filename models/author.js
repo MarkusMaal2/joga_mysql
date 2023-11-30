@@ -5,10 +5,9 @@ class ArticleModel extends BaseSQLModel {
         super("author");
     }
 
-    async findArticles(id) {
+    async findAuthor(id) {
         const author = await super.findById(id);
-        author["articles"] = await super.findByForeignKey("author_id", id, "article", "author_id");
-        return {author};
+        return author;
     }
 }
 
